@@ -1,0 +1,4 @@
+name = "StrongNoiseSDE"
+uuid = "b3e6d319-18df-44a7-ad01-bc5ec2c71d8e"
+authors = ["william davis <williamjsdavis@berkeley.edu>"]
+version = "0.1.0"

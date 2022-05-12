@@ -137,7 +137,7 @@ function get_F(γ̂₁,intercepts,m̂₁,m̂₂,σ̂²ᵧ₁,σ̂²ᵧ₂,σ̂²
 end
 
 export get_F_visualise
-import Plots: plot, plot!, scatter, scatter!, grid
+#import Plots: plot, plot!, scatter, scatter!, grid
 function plot_functions(x_points,m̂₁,m̂₂,γ̂₁,intercepts,σ̂²m₁,σ̂²m₂,σ̂²ᵧ₁,σ̂²ᵧ₂)
     p1 = scatter(x_points, m̂₁, yerror=sqrt.(σ̂²m₁),
         label="Data", title="m̂₁")

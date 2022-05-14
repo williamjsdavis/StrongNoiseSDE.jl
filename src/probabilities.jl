@@ -1,6 +1,7 @@
 # For calculating probabilities and conditional probabilities
 
 # Probabilities
+# NOTE: Be careful with unicode symbols
 Δ(d20,d21,d22) = 4*d20*d22 - d21^2
 a(d11,d22) = d11/(2*d22) - 1
 b(d10,d11,d21,d22) = d10 - d21*d11/(2*d22)

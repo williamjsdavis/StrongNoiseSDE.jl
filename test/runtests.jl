@@ -23,3 +23,24 @@ end
     @test_throws DomainError StrongNoiseSDE.h₀(2.,-3.,4.,5.)
     @test_throws DomainError StrongNoiseSDE.h₀(3.,4.,5.,-6.)
 end
+
+# End to end test
+@testset "End to end tests" begin
+    N = 10
+    γ̂₁ = zeros(N)
+    intercepts = zeros(N)
+    m̂₁ = zeros(N)
+    m̂₂ = zeros(N)
+    σ̂²ᵧ₁ = ones(N)
+    σ̂²ᵧ₂ = ones(N)
+    σ̂²m₁ = ones(N)
+    σ̂²m₂ = ones(N)
+    x_domain = LinRange(-10,10,100)
+    y_centers = LinRange(-6,6,N)
+    F_pac = StrongNoiseSDE.get_F(γ̂₁,intercepts,m̂₁,m̂₂,σ̂²ᵧ₁,σ̂²ᵧ₂,σ̂²m₁,σ̂²m₂,x_domain,y_centers)
+    
+    p_test = [1.,-1.,1.,-1.,1.,0.2]
+    F_test = F_pac(p_test...)
+    @test isreal(F_test)
+    @test isfinite(F_test)
+end

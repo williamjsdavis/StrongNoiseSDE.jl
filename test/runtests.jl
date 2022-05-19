@@ -1,4 +1,5 @@
 using StrongNoiseSDE
+using JLD2
 using Test
 
 @test 1==1
@@ -43,4 +44,15 @@ end
     F_test = F_pac(p_test...)
     @test isreal(F_test)
     @test isfinite(F_test)
+end
+
+@testset "Loading predictions" begin
+    @load "test-predictions-1.jld2" γ₁ γ₂ m₁ m₂ y_centers p_true
+    @test size(p_true) == (6,)
+    @test all(p_true .== [0,-1,1,0,1,1])
+    N = size(y_centers)
+    @test size(γ₁) == N
+    @test size(γ₂) == N
+    @test size(m₁) == N
+    @test size(m₂) == N
 end

@@ -15,6 +15,11 @@ export calculate_m₁, calculate_m₂, calculate_γ₁, calculate_γ₂
 
 include("observations.jl")
 
+# Predictions
+
+export get_predictions
+
+include("predictions.jl")
 
 # Objective function
 export get_F

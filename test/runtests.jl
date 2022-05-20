@@ -46,7 +46,8 @@ end
     @test isfinite(F_test)
 end
 
-@testset "Loading predictions" begin
+@testset "Precomputed predictions: multiplicative + noise" begin
+    # Precomputed
     @load "test-predictions-1.jld2" γ₁ γ₂ m₁ m₂ y_centers p_true
     @test size(p_true) == (6,)
     @test all(p_true .== [0,-1,1,0,1,1])
@@ -55,4 +56,17 @@ end
     @test size(γ₂) == N
     @test size(m₁) == N
     @test size(m₂) == N
+
+    # Calculated
+    x_domain = LinRange(-10,10,500)
+    preditions = StrongNoiseSDE.get_predictions(x_domain,y_centers)
+    γ₁_calc, γ₂_calc, m₁_calc, m₂_calc = preditions(p_true...)
+
+    # Compare
+    #NOTE: set some approximate equality in the future?
+    @test all(γ₁ .== γ₁_calc)
+    @test all(γ₂ .== γ₂_calc)
+    @test all(m₁ .== m₁_calc)
+    @test all(m₂ .== m₂_calc)
 end
+

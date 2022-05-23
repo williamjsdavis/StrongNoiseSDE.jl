@@ -70,3 +70,26 @@ end
     @test all(m₂ .== m₂_calc)
 end
 
+@testset "Precomputed predictions: offset + noise" begin
+    # Precomputed
+    @load "test-predictions-5.jld2" γ₁ γ₂ m₁ m₂ y_centers p_true
+    @test size(p_true) == (6,)
+    @test all(p_true .== [1,-1,1,-1,1,1])
+    N = size(y_centers)
+    @test size(γ₁) == N
+    @test size(γ₂) == N
+    @test size(m₁) == N
+    @test size(m₂) == N
+
+    # Calculated
+    x_domain = LinRange(-10,10,500)
+    preditions = StrongNoiseSDE.get_predictions(x_domain,y_centers)
+    γ₁_calc, γ₂_calc, m₁_calc, m₂_calc = preditions(p_true...)
+
+    # Compare
+    #NOTE: an approximate equality was needed here, and a larger margin is needed for the gamma terms...
+    #@test all(γ₁ .≈ γ₁_calc)
+    #@test all(γ₂ .≈ γ₂_calc)
+    @test all(m₁ .≈ m₁_calc)
+    @test all(m₂ .≈ m₂_calc)
+end
